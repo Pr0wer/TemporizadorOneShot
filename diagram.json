@@ -1,0 +1,61 @@
+{
+    "version": 1,
+    "author": "Davi",
+    "editor": "wokwi",
+    "parts": [
+      { "type": "board-pi-pico-w", "id": "pico", "top": 0, "left": 0, "attrs": {} },
+      { "type": "wokwi-led", "id": "led1", "top": 54, "left": -178.6, "attrs": { "color": "blue" } },
+      {
+        "type": "wokwi-led",
+        "id": "led2",
+        "top": 102,
+        "left": -178.6,
+        "attrs": { "color": "green" }
+      },
+      { "type": "wokwi-led", "id": "led3", "top": 150, "left": -178.6, "attrs": { "color": "red" } },
+      {
+        "type": "wokwi-resistor",
+        "id": "r1",
+        "top": 90.35,
+        "left": -134.4,
+        "attrs": { "value": "330" }
+      },
+      {
+        "type": "wokwi-resistor",
+        "id": "r2",
+        "top": 138.35,
+        "left": -144,
+        "attrs": { "value": "330" }
+      },
+      {
+        "type": "wokwi-resistor",
+        "id": "r3",
+        "top": 186.35,
+        "left": -134.4,
+        "attrs": { "value": "330" }
+      },
+      {
+        "type": "wokwi-pushbutton",
+        "id": "btn1",
+        "top": 25.4,
+        "left": -105.6,
+        "attrs": { "color": "green" }
+      }
+    ],
+    "connections": [
+      [ "pico:GP1", "$serialMonitor:RX", "", [] ],
+      [ "pico:GP0", "$serialMonitor:TX", "", [] ],
+      [ "led1:A", "r1:1", "green", [ "v0" ] ],
+      [ "led2:A", "r2:1", "green", [ "v0" ] ],
+      [ "led3:A", "r3:1", "green", [ "v0" ] ],
+      [ "r2:2", "pico:GP11", "green", [ "v0" ] ],
+      [ "r1:2", "pico:GP12", "green", [ "v0" ] ],
+      [ "r3:2", "pico:GP13", "green", [ "v0" ] ],
+      [ "pico:GND.1", "btn1:1.r", "black", [ "h0" ] ],
+      [ "btn1:2.r", "pico:GP5", "green", [ "h29", "v13.05" ] ],
+      [ "pico:GND.4", "led1:C", "black", [ "h-25.25", "v35.19", "h-201.6", "v-124.8" ] ],
+      [ "led2:C", "pico:GND.4", "black", [ "v0", "h-57.2", "v67.2", "h201.6", "v-38.4" ] ],
+      [ "led3:C", "pico:GND.4", "black", [ "v0", "h-57.2", "v19.2", "h201.6", "v-38.4" ] ]
+    ],
+    "dependencies": {}
+  }

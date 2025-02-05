@@ -33,21 +33,25 @@ int main()
     stdio_init_all();
 
     while (true) 
-    {
+    {    
+        // Tratar botão apenas quando os LEDs estiverem desligados
         if (gpio_get(btn_a_pin) == 0 && ledDesligado)
-        {      
+        {   
+            // Liga e atualiza estado do LED
             for (int i = 0; i < LED_COUNT; i++)
             {
                 gpio_put(led_pins[i], 1);
             }
             ledDesligado = false;
 
+            // Inicia temporizador oneshot
             add_alarm_in_ms(3000, turn_off_callback, NULL, false);
         }
         sleep_ms(50);
     }
 }
 
+// Inicializa todos os pinos de LEDs
 void inicializar_leds()
 {
     for (int i = 0; i < LED_COUNT; i++)
@@ -58,20 +62,24 @@ void inicializar_leds()
     }
 }
 
+// Rotina de alarme
 int64_t turn_off_callback(alarm_id_t id, void *user_data)
 {   
+    // Desliga o LED atual e move cursor para o próximo
     gpio_put(led_pins[cursorLed], 0);
     cursorLed++;
 
+    // Terminar rotina de temporizador caso não haja mais LEDs
     if (cursorLed == LED_COUNT)
-    {      
+    {    
+        // Resetar variáveis de estado
         ledDesligado = true;
         cursorLed = 0;
         return 0;
     }
     else
     {
-        return 3000000;
+        return 3000000; // 3000ms para o desligamento do próximo LED
     }
 }
 
